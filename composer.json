@@ -37,8 +37,8 @@
     "extra": {
         "bootstrap": "ronash\\user\\Bootstrap",
         "branch-alias": {
-            "dev-master": "1.0",
-            "dev-develop": "1.0"
+            "dev-master": "1.0-dev",
+            "dev-develop": "1.0-dev"
         }
     }
 }
