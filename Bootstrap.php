@@ -27,7 +27,7 @@ class Bootstrap implements BootstrapInterface
 {
     /** @var array Model's map */
     private $_modelMap = [
-        'User'             => 'ronash\vendor\models\User',
+        'vendor'             => 'ronash\vendor\models\User',
         'Account'          => 'ronash\vendor\models\Account',
         'Profile'          => 'ronash\vendor\models\Profile',
         'Token'            => 'ronash\vendor\models\Token',
@@ -44,10 +44,10 @@ class Bootstrap implements BootstrapInterface
     {
         /** @var Module $module */
         /** @var \yii\db\ActiveRecord $modelName */
-        if ($app->hasModule('user') && ($module = $app->getModule('user')) instanceof Module) {
+        if ($app->hasModule('vendor') && ($module = $app->getModule('vendor')) instanceof Module) {
             $this->_modelMap = array_merge($this->_modelMap, $module->modelMap);
             foreach ($this->_modelMap as $name => $definition) {
-                $class = "dektrium\\user\\models\\" . $name;
+                $class = "ronash\\vendor\\models\\" . $name;
                 Yii::$container->set($class, $definition);
                 $modelName = is_array($definition) ? $definition['class'] : $definition;
                 $module->modelMap[$name] = $modelName;
@@ -79,8 +79,8 @@ class Bootstrap implements BootstrapInterface
                     'rules'  => $module->urlRules,
                 ];
 
-                if ($module->urlPrefix != 'user') {
-                    $configUrlRule['routePrefix'] = 'user';
+                if ($module->urlPrefix != 'vendor') {
+                    $configUrlRule['routePrefix'] = 'vendor';
                 }
 
                 $configUrlRule['class'] = 'yii\web\GroupUrlRule';
@@ -125,6 +125,6 @@ class Bootstrap implements BootstrapInterface
             return false;
         }
 
-        return Yii::$app->getModule('user')->debug;
+        return Yii::$app->getModule('vendor')->debug;
     }
 }
