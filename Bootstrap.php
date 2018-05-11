@@ -11,273 +11,120 @@
 
 namespace ronash\user;
 
-use ronash\user\models\Token;
-use ronash\user\models\User;
 use Yii;
-use yii\base\Component;
+use yii\authclient\Collection;
+use yii\base\BootstrapInterface;
+use yii\console\Application as ConsoleApplication;
+use yii\i18n\PhpMessageSource;
 
 /**
- * Mailer.
+ * Bootstrap class registers module and user application component. It also creates some url rules which will be applied
+ * when UrlManager.enablePrettyUrl is enabled.
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class Mailer extends Component
+class Bootstrap implements BootstrapInterface
 {
-    /** @var string */
-    public $viewPath = '@dektrium/user/views/mail';
-
-    /** @var string|array Default: `Yii::$app->params['adminEmail']` OR `no-reply@example.com` */
-    public $sender;
-
-    /** @var \yii\mail\BaseMailer Default: `Yii::$app->mailer` */
-    public $mailerComponent;
-
-    /** @var string */
-    protected $welcomeSubject;
-
-    /** @var string */
-    protected $newPasswordSubject;
-
-    /** @var string */
-    protected $confirmationSubject;
-
-    /** @var string */
-    protected $reconfirmationSubject;
-
-    /** @var string */
-    protected $recoverySubject;
-
-    /** @var \dektrium\user\Module */
-    protected $module;
-
-    /**
-     * @return string
-     */
-    public function getWelcomeSubject()
-    {
-        if ($this->welcomeSubject == null) {
-            $this->setWelcomeSubject(Yii::t('user', 'Welcome to {0}', Yii::$app->name));
-        }
-
-        return $this->welcomeSubject;
-    }
-
-    /**
-     * @param string $welcomeSubject
-     */
-    public function setWelcomeSubject($welcomeSubject)
-    {
-        $this->welcomeSubject = $welcomeSubject;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNewPasswordSubject()
-    {
-        if ($this->newPasswordSubject == null) {
-            $this->setNewPasswordSubject(Yii::t('user', 'Your password on {0} has been changed', Yii::$app->name));
-        }
-
-        return $this->newPasswordSubject;
-    }
-
-    /**
-     * @param string $newPasswordSubject
-     */
-    public function setNewPasswordSubject($newPasswordSubject)
-    {
-        $this->newPasswordSubject = $newPasswordSubject;
-    }
-
-    /**
-     * @return string
-     */
-    public function getConfirmationSubject()
-    {
-        if ($this->confirmationSubject == null) {
-            $this->setConfirmationSubject(Yii::t('user', 'Confirm account on {0}', Yii::$app->name));
-        }
-
-        return $this->confirmationSubject;
-    }
-
-    /**
-     * @param string $confirmationSubject
-     */
-    public function setConfirmationSubject($confirmationSubject)
-    {
-        $this->confirmationSubject = $confirmationSubject;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReconfirmationSubject()
-    {
-        if ($this->reconfirmationSubject == null) {
-            $this->setReconfirmationSubject(Yii::t('user', 'Confirm email change on {0}', Yii::$app->name));
-        }
-
-        return $this->reconfirmationSubject;
-    }
-
-    /**
-     * @param string $reconfirmationSubject
-     */
-    public function setReconfirmationSubject($reconfirmationSubject)
-    {
-        $this->reconfirmationSubject = $reconfirmationSubject;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRecoverySubject()
-    {
-        if ($this->recoverySubject == null) {
-            $this->setRecoverySubject(Yii::t('user', 'Complete password reset on {0}', Yii::$app->name));
-        }
-
-        return $this->recoverySubject;
-    }
-
-    /**
-     * @param string $recoverySubject
-     */
-    public function setRecoverySubject($recoverySubject)
-    {
-        $this->recoverySubject = $recoverySubject;
-    }
+    /** @var array Model's map */
+    private $_modelMap = [
+        'User'             => 'dektrium\user\models\User',
+        'Account'          => 'dektrium\user\models\Account',
+        'Profile'          => 'dektrium\user\models\Profile',
+        'Token'            => 'dektrium\user\models\Token',
+        'RegistrationForm' => 'dektrium\user\models\RegistrationForm',
+        'ResendForm'       => 'dektrium\user\models\ResendForm',
+        'LoginForm'        => 'dektrium\user\models\LoginForm',
+        'SettingsForm'     => 'dektrium\user\models\SettingsForm',
+        'RecoveryForm'     => 'dektrium\user\models\RecoveryForm',
+        'UserSearch'       => 'dektrium\user\models\UserSearch',
+    ];
 
     /** @inheritdoc */
-    public function init()
+    public function bootstrap($app)
     {
-        $this->module = Yii::$app->getModule('user');
-        parent::init();
+        /** @var Module $module */
+        /** @var \yii\db\ActiveRecord $modelName */
+        if ($app->hasModule('user') && ($module = $app->getModule('user')) instanceof Module) {
+            $this->_modelMap = array_merge($this->_modelMap, $module->modelMap);
+            foreach ($this->_modelMap as $name => $definition) {
+                $class = "dektrium\\user\\models\\" . $name;
+                Yii::$container->set($class, $definition);
+                $modelName = is_array($definition) ? $definition['class'] : $definition;
+                $module->modelMap[$name] = $modelName;
+                if (in_array($name, ['User', 'Profile', 'Token', 'Account'])) {
+                    Yii::$container->set($name . 'Query', function () use ($modelName) {
+                        return $modelName::find();
+                    });
+                }
+            }
+
+            Yii::$container->setSingleton(Finder::className(), [
+                'userQuery'    => Yii::$container->get('UserQuery'),
+                'profileQuery' => Yii::$container->get('ProfileQuery'),
+                'tokenQuery'   => Yii::$container->get('TokenQuery'),
+                'accountQuery' => Yii::$container->get('AccountQuery'),
+            ]);
+
+            if ($app instanceof ConsoleApplication) {
+                $module->controllerNamespace = 'dektrium\user\commands';
+            } else {
+                Yii::$container->set('yii\web\User', [
+                    'enableAutoLogin' => true,
+                    'loginUrl' => ['/user/security/login'],
+                    'identityClass' => $module->modelMap['User'],
+                ]);
+
+                $configUrlRule = [
+                    'prefix' => $module->urlPrefix,
+                    'rules'  => $module->urlRules,
+                ];
+
+                if ($module->urlPrefix != 'user') {
+                    $configUrlRule['routePrefix'] = 'user';
+                }
+
+                $configUrlRule['class'] = 'yii\web\GroupUrlRule';
+                $rule = Yii::createObject($configUrlRule);
+
+                $app->urlManager->addRules([$rule], false);
+
+                if (!$app->has('authClientCollection')) {
+                    $app->set('authClientCollection', [
+                        'class' => Collection::className(),
+                    ]);
+                }
+            }
+
+            if (!isset($app->get('i18n')->translations['user*'])) {
+                $app->get('i18n')->translations['user*'] = [
+                    'class' => PhpMessageSource::className(),
+                    'basePath' => __DIR__ . '/messages',
+                    'sourceLanguage' => 'en-US'
+                ];
+            }
+
+            Yii::$container->set('dektrium\user\Mailer', $module->mailer);
+
+            $module->debug = $this->ensureCorrectDebugSetting();
+        }
     }
 
-    /**
-     * Sends an email to a user after registration.
-     *
-     * @param User  $user
-     * @param Token $token
-     * @param bool  $showPassword
-     *
-     * @return bool
-     */
-    public function sendWelcomeMessage(User $user, Token $token = null, $showPassword = false)
+    /** Ensure the module is not in DEBUG mode on production environments */
+    public function ensureCorrectDebugSetting()
     {
-        return $this->sendMessage(
-            $user->email,
-            $this->getWelcomeSubject(),
-            'welcome',
-            ['user' => $user, 'token' => $token, 'module' => $this->module, 'showPassword' => $showPassword]
-        );
-    }
-
-    /**
-     * Sends a new generated password to a user.
-     *
-     * @param User  $user
-     * @param Password $password
-     *
-     * @return bool
-     */
-    public function sendGeneratedPassword(User $user, $password)
-    {
-        return $this->sendMessage(
-            $user->email,
-            $this->getNewPasswordSubject(),
-            'new_password',
-            ['user' => $user, 'password' => $password, 'module' => $this->module]
-        );
-    }
-
-    /**
-     * Sends an email to a user with confirmation link.
-     *
-     * @param User  $user
-     * @param Token $token
-     *
-     * @return bool
-     */
-    public function sendConfirmationMessage(User $user, Token $token)
-    {
-        return $this->sendMessage(
-            $user->email,
-            $this->getConfirmationSubject(),
-            'confirmation',
-            ['user' => $user, 'token' => $token]
-        );
-    }
-
-    /**
-     * Sends an email to a user with reconfirmation link.
-     *
-     * @param User  $user
-     * @param Token $token
-     *
-     * @return bool
-     */
-    public function sendReconfirmationMessage(User $user, Token $token)
-    {
-        if ($token->type == Token::TYPE_CONFIRM_NEW_EMAIL) {
-            $email = $user->unconfirmed_email;
-        } else {
-            $email = $user->email;
+        if (!defined('YII_DEBUG')) {
+            return false;
+        }
+        if (!defined('YII_ENV')) {
+            return false;
+        }
+        if (defined('YII_ENV') && YII_ENV !== 'dev') {
+            return false;
+        }
+        if (defined('YII_DEBUG') && YII_DEBUG !== true) {
+            return false;
         }
 
-        return $this->sendMessage(
-            $email,
-            $this->getReconfirmationSubject(),
-            'reconfirmation',
-            ['user' => $user, 'token' => $token]
-        );
-    }
-
-    /**
-     * Sends an email to a user with recovery link.
-     *
-     * @param User  $user
-     * @param Token $token
-     *
-     * @return bool
-     */
-    public function sendRecoveryMessage(User $user, Token $token)
-    {
-        return $this->sendMessage(
-            $user->email,
-            $this->getRecoverySubject(),
-            'recovery',
-            ['user' => $user, 'token' => $token]
-        );
-    }
-
-    /**
-     * @param string $to
-     * @param string $subject
-     * @param string $view
-     * @param array  $params
-     *
-     * @return bool
-     */
-    protected function sendMessage($to, $subject, $view, $params = [])
-    {
-        $mailer = $this->mailerComponent === null ? Yii::$app->mailer : Yii::$app->get($this->mailerComponent);
-        $mailer->viewPath = $this->viewPath;
-        $mailer->getView()->theme = Yii::$app->view->theme;
-
-        if ($this->sender === null) {
-            $this->sender = isset(Yii::$app->params['adminEmail']) ?
-                Yii::$app->params['adminEmail']
-                : 'no-reply@example.com';
-        }
-
-        return $mailer->compose(['html' => $view, 'text' => 'text/' . $view], $params)
-            ->setTo($to)
-            ->setFrom($this->sender)
-            ->setSubject($subject)
-            ->send();
+        return Yii::$app->getModule('user')->debug;
     }
 }

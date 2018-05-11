@@ -10,7 +10,6 @@
  */
 
 namespace ronash\user\models;
-
 use ronash\user\Finder;
 use ronash\user\helpers\Password;
 use ronash\user\Mailer;

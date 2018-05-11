@@ -17,7 +17,7 @@ trait ModuleTrait
      */
     public function getModule()
     {
-        return \Yii::$app->getModule('user');
+        return \Yii::$app->getModule('vendor');
     }
 
     /**
@@ -25,6 +25,6 @@ trait ModuleTrait
      */
     public static function getDb()
     {
-        return \Yii::$app->getModule('user')->getDb();
+        return \Yii::$app->getModule('vendor')->getDb();
     }
 }
