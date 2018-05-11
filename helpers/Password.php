@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\helpers;
+namespace ronash\vendor\helpers;
 
 use Yii;
 

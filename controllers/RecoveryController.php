@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\controllers;
+namespace ronash\vendor\controllers;
 
-use ronash\user\Finder;
-use ronash\user\models\RecoveryForm;
-use dektrium\user\models\Token;
-use ronash\user\traits\AjaxValidationTrait;
-use ronash\user\traits\EventTrait;
+use ronash\vendor\Finder;
+use ronash\vendor\models\RecoveryForm;
+use ronash\vendor\models\Token;
+use ronash\vendor\traits\AjaxValidationTrait;
+use ronash\vendor\traits\EventTrait;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

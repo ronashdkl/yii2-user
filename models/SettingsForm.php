@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\models;
+namespace ronash\vendor\models;
 
-use ronash\user\helpers\Password;
-use ronash\user\Mailer;
-use ronash\user\Module;
-use ronash\user\traits\ModuleTrait;
+use ronash\vendor\helpers\Password;
+use ronash\vendor\Mailer;
+use ronash\vendor\Module;
+use ronash\vendor\traits\ModuleTrait;
 use Yii;
 use yii\base\Model;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace ronash\user\traits;
+namespace ronash\vendor\traits;
 
-use ronash\user\Module;
+use ronash\vendor\Module;
 
 /**
  * Trait ModuleTrait

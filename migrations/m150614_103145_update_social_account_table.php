@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\Query;
-use ronash\user\migrations\Migration;
+use ronash\vendor\migrations\Migration;
 
 class m150614_103145_update_social_account_table extends Migration
 {

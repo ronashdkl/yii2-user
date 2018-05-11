@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\controllers;
+namespace ronash\vendor\controllers;
 
-use ronash\user\filters\AccessRule;
-use ronash\user\Finder;
-use ronash\user\models\Profile;
-use ronash\user\models\User;
-use ronash\user\models\UserSearch;
-use ronash\user\helpers\Password;
-use ronash\user\Module;
-use ronash\user\traits\EventTrait;
+use ronash\vendor\filters\AccessRule;
+use ronash\vendor\Finder;
+use ronash\vendor\models\Profile;
+use ronash\vendor\models\User;
+use ronash\vendor\models\UserSearch;
+use ronash\vendor\helpers\Password;
+use ronash\vendor\Module;
+use ronash\vendor\traits\EventTrait;
 use yii;
 use yii\base\ExitException;
 use yii\base\Model;

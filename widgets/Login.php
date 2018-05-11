@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\widgets;
+namespace ronash\vendor\widgets;
 
-use ronash\user\models\LoginForm;
+use ronash\vendor\models\LoginForm;
 use yii\base\Widget;
 
 /**

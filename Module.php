@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user;
+namespace ronash\vendor;
 
 use yii\base\Module as BaseModule;
 

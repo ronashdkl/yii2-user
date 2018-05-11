@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user;
+namespace ronash\vendor;
 
-use ronash\user\models\query\AccountQuery;
-use ronash\user\models\Token;
+use ronash\vendor\models\query\AccountQuery;
+use ronash\vendor\models\Token;
 use yii\authclient\ClientInterface;
 use yii\base\BaseObject;
 use yii\db\ActiveQuery;

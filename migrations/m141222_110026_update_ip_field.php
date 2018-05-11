@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use ronash\user\migrations\Migration;
+use ronash\vendor\migrations\Migration;
 use yii\db\Query;
 
 class m141222_110026_update_ip_field extends Migration

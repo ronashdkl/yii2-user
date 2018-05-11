@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\controllers;
+namespace ronash\vendor\controllers;
 
-use ronash\user\Finder;
-use ronash\user\models\Profile;
-use ronash\user\models\SettingsForm;
-use ronash\user\models\User;
-use ronash\user\Module;
-use ronash\user\traits\AjaxValidationTrait;
-use ronash\user\traits\EventTrait;
+use ronash\vendor\Finder;
+use ronash\vendor\models\Profile;
+use ronash\vendor\models\SettingsForm;
+use ronash\vendor\models\User;
+use ronash\vendor\Module;
+use ronash\vendor\traits\AjaxValidationTrait;
+use ronash\vendor\traits\EventTrait;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

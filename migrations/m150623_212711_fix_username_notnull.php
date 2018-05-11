@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use ronash\user\migrations\Migration;
+use ronash\vendor\migrations\Migration;
 
 class m150623_212711_fix_username_notnull extends Migration
 {

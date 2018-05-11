@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\models;
+namespace ronash\vendor\models;
 
-use ronash\user\Finder;
-use ronash\user\Mailer;
+use ronash\vendor\Finder;
+use ronash\vendor\Mailer;
 use yii\base\Model;
 
 /**

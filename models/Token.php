@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\models;
+namespace ronash\vendor\models;
 
-use ronash\user\traits\ModuleTrait;
+use ronash\vendor\traits\ModuleTrait;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;

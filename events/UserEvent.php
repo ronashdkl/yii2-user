@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\events;
+namespace ronash\vendor\events;
 
-use ronash\user\models\User;
+use ronash\vendor\models\User;
 use yii\base\Event;
 
 /**

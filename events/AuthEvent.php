@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\events;
+namespace ronash\vendor\events;
 
-use ronash\user\models\Account;
+use ronash\vendor\models\Account;
 use yii\authclient\ClientInterface;
 use yii\base\Event;
 

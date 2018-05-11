@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\models;
+namespace ronash\vendor\models;
 
-use ronash\user\clients\ClientInterface;
-use ronash\user\Finder;
-use ronash\user\models\query\AccountQuery;
-use ronash\user\traits\ModuleTrait;
+use ronash\vendor\clients\ClientInterface;
+use ronash\vendor\Finder;
+use ronash\vendor\models\query\AccountQuery;
+use ronash\vendor\traits\ModuleTrait;
 use yii\authclient\ClientInterface as BaseClientInterface;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;

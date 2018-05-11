@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\widgets;
+namespace ronash\vendor\widgets;
 
 use Yii;
 use yii\authclient\ClientInterface;

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\filters;
+namespace ronash\vendor\filters;
 
 use yii\web\NotFoundHttpException;
 use yii\base\ActionFilter;

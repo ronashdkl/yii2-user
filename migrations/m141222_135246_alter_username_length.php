@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use ronash\user\migrations\Migration;
+use ronash\vendor\migrations\Migration;
 
 class m141222_135246_alter_username_length extends Migration
 {

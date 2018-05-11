@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user;
+namespace ronash\vendor;
 
-use ronash\user\models\Token;
-use ronash\user\models\User;
+use ronash\vendor\models\Token;
+use ronash\vendor\models\User;
 use Yii;
 use yii\base\Component;
 

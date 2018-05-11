@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use ronash\user\migrations\Migration;
+use ronash\vendor\migrations\Migration;
 
 /**
  * @author Dmitry Erofeev <dmeroff@gmail.com>

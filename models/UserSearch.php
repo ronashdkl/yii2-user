@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\models;
+namespace ronash\vendor\models;
 
-use ronash\user\Finder;
+use ronash\vendor\Finder;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;

@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\events;
+namespace ronash\vendor\events;
 
-use ronash\user\models\RecoveryForm;
-use ronash\user\models\Token;
+use ronash\vendor\models\RecoveryForm;
+use ronash\vendor\models\Token;
 use yii\base\Event;
 
 /**

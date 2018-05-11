@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\events;
+namespace ronash\vendor\events;
 
 use yii\base\Event;
 use yii\base\Model;

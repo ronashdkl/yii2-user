@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user;
+namespace ronash\vendor;
 
 use Yii;
 use yii\authclient\Collection;
@@ -27,16 +27,16 @@ class Bootstrap implements BootstrapInterface
 {
     /** @var array Model's map */
     private $_modelMap = [
-        'User'             => 'ronash\user\models\User',
-        'Account'          => 'ronash\user\models\Account',
-        'Profile'          => 'ronash\user\models\Profile',
-        'Token'            => 'ronash\user\models\Token',
-        'RegistrationForm' => 'ronash\user\models\RegistrationForm',
-        'ResendForm'       => 'ronash\user\models\ResendForm',
-        'LoginForm'        => 'ronash\user\models\LoginForm',
-        'SettingsForm'     => 'ronash\user\models\SettingsForm',
-        'RecoveryForm'     => 'ronash\user\models\RecoveryForm',
-        'UserSearch'       => 'ronash\user\models\UserSearch',
+        'User'             => 'ronash\vendor\models\User',
+        'Account'          => 'ronash\vendor\models\Account',
+        'Profile'          => 'ronash\vendor\models\Profile',
+        'Token'            => 'ronash\vendor\models\Token',
+        'RegistrationForm' => 'ronash\vendor\models\RegistrationForm',
+        'ResendForm'       => 'ronash\vendor\models\ResendForm',
+        'LoginForm'        => 'ronash\vendor\models\LoginForm',
+        'SettingsForm'     => 'ronash\vendor\models\SettingsForm',
+        'RecoveryForm'     => 'ronash\vendor\models\RecoveryForm',
+        'UserSearch'       => 'ronash\vendor\models\UserSearch',
     ];
 
     /** @inheritdoc */
@@ -66,7 +66,7 @@ class Bootstrap implements BootstrapInterface
             ]);
 
             if ($app instanceof ConsoleApplication) {
-                $module->controllerNamespace = 'ronash\user\commands';
+                $module->controllerNamespace = 'ronash\vendor\commands';
             } else {
                 Yii::$container->set('yii\web\User', [
                     'enableAutoLogin' => true,

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\controllers;
+namespace ronash\vendor\controllers;
 
-use ronash\user\Finder;
+use ronash\vendor\Finder;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

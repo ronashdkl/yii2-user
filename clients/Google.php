@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\clients;
+namespace ronash\vendor\clients;
 
 use yii\authclient\clients\Google as BaseGoogle;
 

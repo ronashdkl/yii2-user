@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\models;
+namespace ronash\vendor\models;
 
-use ronash\user\Finder;
-use ronash\user\helpers\Password;
-use ronash\user\traits\ModuleTrait;
+use ronash\vendor\Finder;
+use ronash\vendor\helpers\Password;
+use ronash\vendor\traits\ModuleTrait;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use Yii;

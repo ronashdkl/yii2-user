@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\traits;
+namespace ronash\vendor\traits;
 
-use ronash\user\events\AuthEvent;
-use ronash\user\events\ConnectEvent;
-use ronash\user\events\FormEvent;
-use ronash\user\events\ProfileEvent;
-use ronash\user\events\ResetPasswordEvent;
-use ronash\user\events\UserEvent;
-use ronash\user\models\Account;
-use ronash\user\models\Profile;
-use ronash\user\models\RecoveryForm;
-use ronash\user\models\Token;
-use ronash\user\models\User;
+use ronash\vendor\events\AuthEvent;
+use ronash\vendor\events\ConnectEvent;
+use ronash\vendor\events\FormEvent;
+use ronash\vendor\events\ProfileEvent;
+use ronash\vendor\models\Account;
+use ronash\vendor\events\UserEvent;
+use ronash\vendor\events\ResetPasswordEvent;
+use ronash\vendor\models\Profile;
+use ronash\vendor\models\RecoveryForm;
+use ronash\vendor\models\Token;
+use ronash\vendor\models\User;
 use yii\authclient\ClientInterface;
 use yii\base\Model;
 

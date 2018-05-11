@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ronash\user\commands;
+namespace ronash\vendor\commands;
 
-use ronash\user\models\User;
+use ronash\vendor\models\User;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
