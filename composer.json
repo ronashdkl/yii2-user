@@ -16,7 +16,6 @@
             "homepage": "http://www.ronash.com.np"
         }
     ],
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": ">=5.4.0",
