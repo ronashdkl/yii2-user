@@ -1,7 +1,7 @@
 {
-    "name": "ronash/yii2-user",
-    "description": "Flexible user registration and authentication module for Yii2",
-    "keywords": ["yii2", "yii2-user", "user management"],
+    "name": "ronash/yii2-vendor-management",
+    "description": "Flexible vendor registration and authentication module for lunch hub project",
+    "keywords": ["yii2", "lunch hub", "vendor management"],
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
